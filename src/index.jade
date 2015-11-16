@@ -17,27 +17,44 @@ html
 
       section
         h2 Using ES6 today
-        h3 Modern browsers
-        p Edge 13 (84%), Firefox 44 (74%), Chrome 48 (65%), Safari 9 (54%)
-
-        h3 Compilers
-        p Babel (71%), Traceur (59%)
-
-        h3 Polyfills
-        p core-js (included with Babel), es6-shim
-
-        p.small ES6 coverage stats sourced from <a href="https://kangax.github.io/compat-table/es6/">https://kangax.github.io/compat-table/es6/</a> on 16 November 2015.
+        .venn-fine-print Percentages show number of ES6 features supported.
+        .venn
+          .venn1
+            h3 Modern browsers
+            p Edge 13 (84%)
+            p Firefox 44 (74%)
+            p Chrome 48 (65%)
+            p Safari 9 (54%)
+          .venn2
+            h3 Compilers
+            p Babel (71%)
+            p Traceur (59%)
+          .venn3
+            h3 Polyfills
+            p core-js (included with Babel)
+            p es6-shim (17%)
+        // ES6 coverage stats sourced from <a href="https://kangax.github.io/compat-table/es6/">https://kangax.github.io/compat-table/es6/</a> on 16 November 2015.
 
       section
         h2 Using ES6 today
-        h3 Modern browsers
-        p Object proxies, let/const
+        .venn
+          .venn1
+            h3 Modern browsers
+            p Object proxies
+            p let/const
+            p Symbols
+          .venn2
+            h3 Compilers
+            p Destructuring
+            p Default function parameters
+          .venn3
+            h3 Polyfills
+            p Promises
+            p new methods on Math, Array, etc
 
-        h3 Compilers
-        p Destructuring, default function parameters
-
-        h3 Polyfills
-        p Promises, new methods on Math, Array, etc
+        // To get the full benefits of ES6 you need to use the latest browsers.
+        // But we don't usually have that luxury.
+        // Fortunately, compilers and polyfills are pretty good too.
 
         // Compilers and polyfills actually support some features even better than the browsers.
         // Some nice things about using Destructuring:
@@ -73,6 +90,21 @@ html
             var [url, address, phone] = contact;
         // - more concise
         // - easier to read
+  
+      section
+        h2 Rest pattern
+        pre
+          code.language-javascript.
+            var contact = [
+              'http://www.deloitte.com',
+              '550 Bourke Street, Melbourne',
+              '+61 3 9671 7000',
+              'facebook.com/DeloitteAustralia',
+              '@green_dot'
+            ];
+            var [url, address, phone, ...rest] = contact;
+            console.log(rest);
+            // ['facebook.com/DeloitteAustralia', '@green_dot']
 
       section
         h2 Swap two variables
