@@ -11,57 +11,197 @@ html
 
     article
 
-      section
+      section.bg-img(style="background-image:url('images/Mirador-Building-by-MVRDV-and-Blanca-Lleo-photo-Luis-Garcia-by-Axel-de-Stampa.gif');")
         h1 Destructuring
+        // Background image from http://www.archdaily.com/512262/gifs-turn-architecture-into-animated-art
 
       section
-        h2 Keyboard Interaction
-        h3 Powered by <a href="https://github.com/markdalgleish/bespoke-keys">bespoke-keys</a>
+        h2 Using ES6 today
+        h3 Modern browsers
+        p Edge 13 (84%), Firefox 44 (74%), Chrome 48 (65%), Safari 9 (54%)
+
+        h3 Compilers
+        p Babel (71%), Traceur (59%)
+
+        h3 Polyfills
+        p core-js (included with Babel), es6-shim
+
+        p.small ES6 coverage stats sourced from <a href="https://kangax.github.io/compat-table/es6/">https://kangax.github.io/compat-table/es6/</a> on 16 November 2015.
 
       section
-        h2 Touch Interaction
-        h3 Powered by <a href="https://github.com/markdalgleish/bespoke-touch">bespoke-touch</a>
+        h2 Using ES6 today
+        h3 Modern browsers
+        p Object proxies, let/const
+
+        h3 Compilers
+        p Destructuring, default function parameters
+
+        h3 Polyfills
+        p Promises, new methods on Math, Array, etc
+
+        // Compilers and polyfills actually support some features even better than the browsers.
+        // Some nice things about using Destructuring:
+        // - Support in Babel is pretty much complete (the only reason its not 100% is because destructuring can be used in combination with other ES6 features)
+        // - There is no performance hit. Destructuing assignments written in ES6 and compiled to ES5 will run just as fast as your original ES5.
 
       section
-        h2 Responsive Slides
-        h3 Powered by <a href="https://github.com/markdalgleish/bespoke-scale">bespoke-scale</a>
-
-      section
-        h2 Bullet List
-        h3.bullet Powered by <a href="https://github.com/markdalgleish/bespoke-bullets">bespoke-bullets</a>
+        h2 Babel in Middleman
+        h3 <a href="https://github.com/vast/middleman-es6">https://github.com/vast/middleman-es6</a>
         ul
-          li Bullet 1
-          li Bullet 2
-          li Bullet 3
+          li A Middleman (Sprockets) extension
+          li Uses official Ruby-Babel bridge
+          li Just change the extension of any applicable JS files to .js.es6
 
       section
-        h2 Syntax Highlighting
-        h3 Powered by <a href="http://twitter.com/LeaVerou">Lea Verou</a>'s <a href="https://github.com/LeaVerou/prism">Prism</a>
+        h2 Destructuring arrays<br>[] = [];
+
+      section
         pre
           code.language-javascript.
-            bespoke.from('article', [
-              classes(),
-              keys(),
-              touch(),
-              bullets('li, .bullet')
-            ]);
+            var contact = [
+              'http://www.deloitte.com',
+              '550 Bourke Street, Melbourne',
+              '+61 3 9671 7000'
+            ];
 
-      section(data-bespoke-hash='named-route')
-        h2 Named Route
-        h3 Powered by <a href="https://github.com/markdalgleish/bespoke-hash">bespoke-hash</a>
-        p Look up! This route has been named with a <em>'data-bespoke-hash'</em> attribute.
+            // ES5
+            var url = contact[0],
+              address = contact[1],
+              phone = contact[2];
+
+            // ES6
+            var [url, address, phone] = contact;
+        // - more concise
+        // - easier to read
 
       section
-        h2.bullet Just the beginning...
-        br
+        h2 Swap two variables
+        // Bit of a gimmick really
+        pre
+          code.language-javascript.
+            var fruit = 'zucchini',
+              vegetable = 'apple';
+
+            // ES5
+            var temp = fruit;
+            fruit = vegetable;
+            vegetable = temp;
+            delete temp;
+
+            // ES6
+            [fruit, vegetable] = [vegetable, fruit];
+
+      section
+        h2 Nested arrays
+        pre.small-code
+          code.language-javascript.
+            // ES5
+            var ageGroups = [
+              ['18-35', [20, 15]],
+              ['35-50', [34, 30]],
+              ['50-65', [26, 28]],
+              ['65+', [20, 27]]
+            ];
+            ageGroups.forEach(function(group) {
+                var label = group[0],
+                  today = group[1][0],
+                  future = group[1][1];
+                console.log(label, today, future);
+            });
+
+      section
+        h2 Nested arrays
+        pre
+          code.language-javascript.
+            // ES6
+            var ageGroups = [
+              ['18-35', [20, 15]],
+              ['35-50', [34, 30]],
+              ['50-65', [26, 28]],
+              ['65+', [20, 27]]
+            ];
+            ageGroups.forEach(function([label, [today, future]]) {
+              console.log(`The ${label} age group makes up
+              ${today}% today, and ${future}% in the future`);
+            });
+        // Show demo in FF
+        // Show Babel compilation
+
+      section
+        h2 Destructuring objects<br>{} = {};
+
+      section
+        h2 Destructuring objects
+        pre.bullet
+          code.language-javascript.
+            var data = { fruit: 'apple', vegetable: 'zucchini' };
+        pre.bullet
+          code.language-javascript.
+            var { fruit, vegetable } = data;
+        pre.bullet
+          code.language-javascript.
+            var { fruit: f, vegetable: v } = data;
+        // Show in Firefox
+
+      section
+        h2 Default values
+        pre.bullet
+          code.language-javascript.
+            var data = { fruit: 'apple' };
+        pre.bullet
+          code.language-javascript.
+            var { fruit: f, vegetable: v = 'potato' } = data;
+        pre.bullet
+          code.language-javascript.
+            var {
+              fruit: f,
+              vegetable: v = 'potato'
+            } = data;
+        // The default is used when the value is undefined.
+
+      section
+        h2 Destructuring in function parameters
+        pre.bullet
+          code.language-javascript.
+            var callServer = function({ url, method = 'GET' }) {
+              console.log(`Make ${method} call to ${url}`);
+            };
+
+            callServer({ url: '/transactions' });
+
+      section
+        h2 Nested objects
+        pre.bullet
+          code.language-javascript.
+            var drawCircle = function ({
+              point: {
+                x: pointX = 10,
+                y: pointY = 10
+              } = {},
+              radius = 25
+            }) {
+              console.log(pointX, pointY, radius);
+            };
+
+            drawCircle({
+              point: { x: 20, y: 20 },
+              radius: 35
+            });
+
+            drawCircle({
+              point: { x: 20 },
+              radius: 35
+            });
+
+            drawCircle({
+              radius: 35
+            });
+
+      section
+        h2 Resources
         ul
-          li Edit <a href="http://jade-lang.com/">Jade</a> markup in <em>'src/index.jade'</em>
-          li Edit <a href="http://learnboost.github.io/stylus/">Stylus</a> styles in <em>'src/styles/main.styl'</em>
-          li Edit JavaScript in <em>'src/scripts/main.js'</em>
-        br
-        ul
-          li
-            strong Enjoy! :)
-            a(href='http://twitter.com/markdalgleish')  -@markdalgleish
+          li <a href="https://kangax.github.io/compat-table/es6/">ES6 compatibility table</a>
+          li <a href="http://babeljs.io/">Babel (compiler)</a>
+          li <a href="https://github.com/vast/middleman-es6">Middleman ES6</a>
 
     script(src='build/build.js')
