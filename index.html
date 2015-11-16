@@ -14,22 +14,51 @@
       </section>
       <section>
         <h2>Using ES6 today</h2>
-        <h3>Modern browsers</h3>
-        <p>Edge 13 (84%), Firefox 44 (74%), Chrome 48 (65%), Safari 9 (54%)</p>
-        <h3>Compilers</h3>
-        <p>Babel (71%), Traceur (59%)</p>
-        <h3>Polyfills</h3>
-        <p>core-js (included with Babel), es6-shim</p>
-        <p class="small">ES6 coverage stats sourced from <a href="https://kangax.github.io/compat-table/es6/">https://kangax.github.io/compat-table/es6/</a> on 16 November 2015.</p>
+        <div class="venn-fine-print">Percentages show number of ES6 features supported.</div>
+        <div class="venn">
+          <div class="venn1">
+            <h3>Modern browsers</h3>
+            <p>Edge 13 (84%)</p>
+            <p>Firefox 44 (74%)</p>
+            <p>Chrome 48 (65%)</p>
+            <p>Safari 9 (54%)</p>
+          </div>
+          <div class="venn2">
+            <h3>Compilers</h3>
+            <p>Babel (71%)</p>
+            <p>Traceur (59%)</p>
+          </div>
+          <div class="venn3">
+            <h3>Polyfills</h3>
+            <p>core-js (included with Babel)</p>
+            <p>es6-shim (17%)</p>
+          </div>
+        </div>
+        <!-- ES6 coverage stats sourced from <a href="https://kangax.github.io/compat-table/es6/">https://kangax.github.io/compat-table/es6/</a> on 16 November 2015.-->
       </section>
       <section>
         <h2>Using ES6 today</h2>
-        <h3>Modern browsers</h3>
-        <p>Object proxies, let/const</p>
-        <h3>Compilers</h3>
-        <p>Destructuring, default function parameters</p>
-        <h3>Polyfills</h3>
-        <p>Promises, new methods on Math, Array, etc</p>
+        <div class="venn">
+          <div class="venn1">
+            <h3>Modern browsers</h3>
+            <p>Object proxies</p>
+            <p>let/const</p>
+            <p>Symbols</p>
+          </div>
+          <div class="venn2">
+            <h3>Compilers</h3>
+            <p>Destructuring</p>
+            <p>Default function parameters</p>
+          </div>
+          <div class="venn3">
+            <h3>Polyfills</h3>
+            <p>Promises</p>
+            <p>new methods on Math, Array, etc</p>
+          </div>
+        </div>
+        <!-- To get the full benefits of ES6 you need to use the latest browsers.-->
+        <!-- But we don't usually have that luxury.-->
+        <!-- Fortunately, compilers and polyfills are pretty good too.-->
         <!-- Compilers and polyfills actually support some features even better than the browsers.-->
         <!-- Some nice things about using Destructuring:-->
         <!-- - Support in Babel is pretty much complete (the only reason its not 100% is because destructuring can be used in combination with other ES6 features)-->
@@ -63,6 +92,20 @@ var url = contact[0],
 var [url, address, phone] = contact;</code></pre>
         <!-- - more concise-->
         <!-- - easier to read-->
+      </section>
+      <section>
+        <h2>Rest pattern</h2>
+        <pre><code class="language-javascript">var contact = [
+  'http://www.deloitte.com',
+  '550 Bourke Street, Melbourne',
+  '+61 3 9671 7000',
+  'facebook.com/DeloitteAustralia',
+  '@green_dot'
+];
+var [url, address, phone, ...rest] = contact;
+console.log(rest);
+// ['facebook.com/DeloitteAustralia', '@green_dot']
+</code></pre>
       </section>
       <section>
         <h2>Swap two variables</h2>
